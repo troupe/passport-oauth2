@@ -1,7 +1,6 @@
 {
-  "name": "passport-oauth2",
+  "name": "gitter-passport-oauth2",
   "version": "1.1.2-a",
-  "private": true,
   "description": "OAuth 2.0 authentication strategy for Passport.",
   "keywords": [
     "passport",
@@ -47,5 +46,8 @@
   },
   "scripts": {
     "test": "node_modules/.bin/mocha --reporter spec --require test/bootstrap/node test/*.test.js test/**/*.test.js"
+  },
+  "publishConfig": {
+    "registry": "http://beta-internal:8089/nexus/content/repositories/gitter-private/"
   }
 }
