@@ -1,21 +1,29 @@
 var chai = require('chai')
-  , OAuth2Strategy = require('../lib/strategy');
+  , OAuth2Strategy = require('../lib/strategy')
+  , util = require('util');
+
+
+function MockOAuth2Strategy(options, verify) {
+  OAuth2Strategy.call(this, options, verify);
+}
+util.inherits(MockOAuth2Strategy, OAuth2Strategy);
+
+MockOAuth2Strategy.prototype.tokenParams = function(options) {
+  return { type: options.type };
+}
 
 
 describe('OAuth2Strategy', function() {
     
-  describe('with verify callback that accepts params', function() {
-    var strategy = new OAuth2Strategy({
+  describe('subclass that overrides tokenParams function', function() {
+    var strategy = new MockOAuth2Strategy({
         authorizationURL: 'https://www.example.com/oauth2/authorize',
         tokenURL: 'https://www.example.com/oauth2/token',
         clientID: 'ABC123',
         clientSecret: 'secret',
         callbackURL: 'https://www.example.net/auth/example/callback',
       },
-      function(accessToken, refreshToken, params, profile, done) {
-        if (params.example_parameter !== 'example_value') { return done(null, false); }
-        if (Object.keys(profile).length !== 0) { return done(null, false); }
-        
+      function(accessToken, refreshToken, profile, done) {
         if (accessToken == '2YotnFZFEjr1zCsicMWpAA' && refreshToken == 'tGzv3JOkF0XG5Qx2TlKWIA') { 
           return done(null, { id: '1234' }, { message: 'Hello' });
         }
@@ -24,10 +32,8 @@ describe('OAuth2Strategy', function() {
   
     // inject a "mock" oauth2 instance
     strategy._oauth2.getOAuthAccessToken = function(code, options, callback) {
-      if (options.grant_type !== 'authorization_code') { return callback(null, 'wrong-access-token', 'wrong-refresh-token'); }
-      
-      if (code == 'SplxlOBeZQQYbYS6WxSbIA' && options.redirect_uri == 'https://www.example.net/auth/example/callback') {
-        callback(null, '2YotnFZFEjr1zCsicMWpAA', 'tGzv3JOkF0XG5Qx2TlKWIA', { token_type: 'example', expires_in: 3600, example_parameter: 'example_value' });
+      if (code == 'SplxlOBeZQQYbYS6WxSbIA' && options.grant_type == 'authorization_code' && options.redirect_uri == 'https://www.example.net/auth/example/callback' && options.type == 'web_server') {
+        callback(null, '2YotnFZFEjr1zCsicMWpAA', 'tGzv3JOkF0XG5Qx2TlKWIA', { token_type: 'example' });
       } else {
         callback(null, 'wrong-access-token', 'wrong-refresh-token');
       }
@@ -48,7 +54,7 @@ describe('OAuth2Strategy', function() {
             req.query = {};
             req.query.code = 'SplxlOBeZQQYbYS6WxSbIA';
           })
-          .authenticate();
+          .authenticate({ type: 'web_server' });
       });
   
       it('should supply user', function() {

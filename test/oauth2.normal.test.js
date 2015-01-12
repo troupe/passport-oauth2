@@ -45,7 +45,7 @@ describe('OAuth2Strategy', function() {
       , info;
   
     before(function(done) {
-      chai.passport(strategy)
+      chai.passport.use(strategy)
         .success(function(u, i) {
           user = u;
           info = i;
@@ -74,7 +74,7 @@ describe('OAuth2Strategy', function() {
       , info;
   
     before(function(done) {
-      chai.passport(strategy)
+      chai.passport.use(strategy)
         .success(function(u, i) {
           user = u;
           info = i;
@@ -103,7 +103,7 @@ describe('OAuth2Strategy', function() {
       , info;
   
     before(function(done) {
-      chai.passport(strategy)
+      chai.passport.use(strategy)
         .success(function(u, i) {
           user = u;
           info = i;
@@ -134,7 +134,7 @@ describe('OAuth2Strategy', function() {
     var url;
   
     before(function(done) {
-      chai.passport(strategy)
+      chai.passport.use(strategy)
         .redirect(function(u) {
           url = u;
           done();
@@ -145,7 +145,7 @@ describe('OAuth2Strategy', function() {
     });
   
     it('should be redirected', function() {
-      expect(url).to.equal('https://www.example.com/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fwww.example.net%2Fauth%2Fexample%2Fcallback&client_id=ABC123&type=web_server');
+      expect(url).to.equal('https://www.example.com/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fwww.example.net%2Fauth%2Fexample%2Fcallback&client_id=ABC123');
     });
   });
   
@@ -153,7 +153,7 @@ describe('OAuth2Strategy', function() {
     var url;
   
     before(function(done) {
-      chai.passport(strategy)
+      chai.passport.use(strategy)
         .redirect(function(u) {
           url = u;
           done();
@@ -164,7 +164,7 @@ describe('OAuth2Strategy', function() {
     });
   
     it('should be redirected', function() {
-      expect(url).to.equal('https://www.example.com/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fwww.example.net%2Fauth%2Fexample%2Fcallback&scope=email&client_id=ABC123&type=web_server');
+      expect(url).to.equal('https://www.example.com/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fwww.example.net%2Fauth%2Fexample%2Fcallback&scope=email&client_id=ABC123');
     });
   });
   
@@ -172,7 +172,7 @@ describe('OAuth2Strategy', function() {
     var url;
   
     before(function(done) {
-      chai.passport(strategy)
+      chai.passport.use(strategy)
         .redirect(function(u) {
           url = u;
           done();
@@ -183,7 +183,7 @@ describe('OAuth2Strategy', function() {
     });
   
     it('should be redirected', function() {
-      expect(url).to.equal('https://www.example.com/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fwww.example.net%2Fauth%2Fexample%2Fcallback&scope=permission_1%20permission_2&client_id=ABC123&type=web_server');
+      expect(url).to.equal('https://www.example.com/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fwww.example.net%2Fauth%2Fexample%2Fcallback&scope=permission_1%20permission_2&client_id=ABC123');
     });
   });
   
@@ -191,7 +191,7 @@ describe('OAuth2Strategy', function() {
     var url;
   
     before(function(done) {
-      chai.passport(strategy)
+      chai.passport.use(strategy)
         .redirect(function(u) {
           url = u;
           done();
@@ -202,7 +202,7 @@ describe('OAuth2Strategy', function() {
     });
   
     it('should be redirected', function() {
-      expect(url).to.equal('https://www.example.com/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fwww.example.net%2Fauth%2Fexample%2Fcallback%2Falt1&client_id=ABC123&type=web_server');
+      expect(url).to.equal('https://www.example.com/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fwww.example.net%2Fauth%2Fexample%2Fcallback%2Falt1&client_id=ABC123');
     });
   });
   
@@ -210,7 +210,7 @@ describe('OAuth2Strategy', function() {
     var url;
   
     before(function(done) {
-      chai.passport(strategy)
+      chai.passport.use(strategy)
         .redirect(function(u) {
           url = u;
           done();
@@ -224,7 +224,7 @@ describe('OAuth2Strategy', function() {
     });
   
     it('should be redirected', function() {
-      expect(url).to.equal('https://www.example.com/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fwww.example.net%2Fauth%2Fexample%2Fcallback%2Falt2&client_id=ABC123&type=web_server');
+      expect(url).to.equal('https://www.example.com/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fwww.example.net%2Fauth%2Fexample%2Fcallback%2Falt2&client_id=ABC123');
     });
   });
   
@@ -232,7 +232,7 @@ describe('OAuth2Strategy', function() {
     var info;
   
     before(function(done) {
-      chai.passport(strategy)
+      chai.passport.use(strategy)
         .fail(function(i) {
           info = i;
           done();
@@ -254,7 +254,7 @@ describe('OAuth2Strategy', function() {
     var info;
   
     before(function(done) {
-      chai.passport(strategy)
+      chai.passport.use(strategy)
         .fail(function(i) {
           info = i;
           done();
@@ -277,7 +277,7 @@ describe('OAuth2Strategy', function() {
     var err;
   
     before(function(done) {
-      chai.passport(strategy)
+      chai.passport.use(strategy)
         .error(function(e) {
           err = e;
           done();
@@ -302,7 +302,7 @@ describe('OAuth2Strategy', function() {
     var err;
   
     before(function(done) {
-      chai.passport(strategy)
+      chai.passport.use(strategy)
         .error(function(e) {
           err = e;
           done();
@@ -328,7 +328,7 @@ describe('OAuth2Strategy', function() {
     var err;
   
     before(function(done) {
-      chai.passport(strategy)
+      chai.passport.use(strategy)
         .error(function(e) {
           err = e;
           done();
@@ -354,7 +354,7 @@ describe('OAuth2Strategy', function() {
     var info;
   
     before(function(done) {
-      chai.passport(strategy)
+      chai.passport.use(strategy)
         .fail(function(i) {
           info = i;
           done();
