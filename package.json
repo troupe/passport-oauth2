@@ -1,5 +1,5 @@
 {
-  "name": "gitter-passport-oauth2",
+  "name": "@gitterhq/passport-oauth2",
   "version": "1.1.2-b",
   "description": "OAuth 2.0 authentication strategy for Passport.",
   "keywords": [
